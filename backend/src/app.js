@@ -5,9 +5,7 @@ const reservationRoutes = require('./routes/reservationRoutes');
 const app = express();
 
 // 2. Agrega esta línea (debe ir ANTES de las rutas)
-app.use(cors({
-  origin: 'http://localhost:5173' // Le da permiso exclusivo a tu frontend de React
-}));
+app.use(cors());
 
 app.use(express.json()); // Middleware para leer JSON (seguro ya lo tienes)
 
