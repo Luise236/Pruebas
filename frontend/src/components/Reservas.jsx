@@ -20,15 +20,18 @@ export default function Reservas() {
         const token = localStorage.getItem('token');
         if (!token) return; 
 
-        // Traemos tanto las reservas como el listado de canchas en paralelo
+        // 1. Obtenemos la URL de la API desde las variables de entorno
+        const API_URL = import.meta.env.VITE_API_URL;
+
+        // 2. Usamos esa variable en las peticiones en lugar de localhost
         const [responseReservas, responseCanchas] = await Promise.all([
-          axios.get('http://localhost:3000/api/reservations', {
+          axios.get(`${API_URL}/reservations`, {
             headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get('http://localhost:3000/api/courts', {
+              }),
+          axios.get(`${API_URL}/courts`, {
             headers: { Authorization: `Bearer ${token}` }
-          })
-        ]);
+              })
+]);
         
         // 3. Solo actualizamos el estado si el componente sigue montado
         if (isMounted) {
