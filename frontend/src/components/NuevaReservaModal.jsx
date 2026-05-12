@@ -17,7 +17,8 @@ export default function NuevaReservaModal({ onClose, onSuccess }) {
     const fetchCanchas = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:3000/api/courts', {
+        const API_URL = import.meta.env.VITE_API_URL;
+        const response = await axios.post(`${API_URL}/courts`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 

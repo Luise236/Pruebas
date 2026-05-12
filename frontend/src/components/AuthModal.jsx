@@ -26,7 +26,7 @@ export default function AuthModal({ onClose }) {
         if (isLogin) {
             // --- LÓGICA DE LOGIN ---
             const API_URL = import.meta.env.VITE_API_URL;
-            const response = await axios.post(`${API_URL}/api/auth/login`, {
+            const response = await axios.post(`${API_URL}/auth/login`, {
                 email: formData.email,
                 password: formData.password
             });
@@ -44,7 +44,7 @@ export default function AuthModal({ onClose }) {
         } else {
             // --- LÓGICA DE REGISTRO ---
             const API_URL = import.meta.env.VITE_API_URL;
-            const response = await axios.post(`${API_URL}/api/auth/register`, {
+            const response = await axios.post(`${API_URL}/auth/register`, {
                 fullName: formData.fullName,
                 email: formData.email,
                 password: formData.password
