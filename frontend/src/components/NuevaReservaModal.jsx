@@ -13,31 +13,33 @@ export default function NuevaReservaModal({ onClose, onSuccess }) {
 
   const [canchasDisponibles, setCanchasDisponibles] = useState([]);
 
-  useEffect(() => {
-    const fetchCanchas = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const API_URL = import.meta.env.VITE_API_URL;
-        const response = await axios.post(`${API_URL}/courts`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+ useEffect(() => {
+  const fetchCanchas = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const API_URL = import.meta.env.VITE_API_URL;
+      
+      // ✅ CAMBIO: Usar axios.get en lugar de axios.post
+      const response = await axios.get(`${API_URL}/courts`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
 
-        console.log("Datos de canchas obtenidos:", response.data);
-        
-        if (Array.isArray(response.data)) {
-          setCanchasDisponibles(response.data);
-        } else if (response.data.courts || response.data.data) {
-          setCanchasDisponibles(response.data.courts || response.data.data);
-        }
-        
-      } catch (error) {
-        console.error("Error al cargar las canchas:", error);
-        alert("No se pudieron cargar las canchas disponibles.");
+      console.log("Datos de canchas obtenidos:", response.data);
+      
+      if (Array.isArray(response.data)) {
+        setCanchasDisponibles(response.data);
+      } else if (response.data.courts || response.data.data) {
+        setCanchasDisponibles(response.data.courts || response.data.data);
       }
-    };
-
-    fetchCanchas();
-  }, []);
+      
+    } catch (error) {
+      console.error("Error al cargar las canchas:", error);
+      // No lances el alert de inmediato para no molestar al usuario si hay un re-render
+    }
+  };
+  fetchCanchas(); // No olvides llamar a la función
+}, []); // Asegúrate de tener el array de dependencias vacío
+ 
 
   const handleChange = (e) => {
     setFormData({
