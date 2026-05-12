@@ -25,7 +25,8 @@ export default function AuthModal({ onClose }) {
     try {
         if (isLogin) {
             // --- LÓGICA DE LOGIN ---
-            const response = await axios.post('http://localhost:3000/api/auth/login', {
+            const API_URL = import.meta.env.VITE_API_URL;
+            const response = await axios.post(`${API_URL}/api/auth/login`, {
                 email: formData.email,
                 password: formData.password
             });
@@ -42,7 +43,8 @@ export default function AuthModal({ onClose }) {
 
         } else {
             // --- LÓGICA DE REGISTRO ---
-            const response = await axios.post('http://localhost:3000/api/auth/register', {
+            const API_URL = import.meta.env.VITE_API_URL;
+            const response = await axios.post(`${API_URL}/api/auth/register`, {
                 fullName: formData.fullName,
                 email: formData.email,
                 password: formData.password

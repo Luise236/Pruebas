@@ -67,7 +67,8 @@ export default function NuevaReservaModal({ onClose, onSuccess }) {
         const end_time = `${end_time_calculado}:00`;
 
         // 3. Enviar los datos correctos
-        await axios.post('http://localhost:3000/api/reservations', {
+         const API_URL = import.meta.env.VITE_API_URL;
+          await axios.post(`${API_URL}/reservations`, {
             court_id: formData.cancha,
             fecha: formData.fecha,
             start_time: start_time,
